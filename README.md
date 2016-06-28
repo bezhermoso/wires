@@ -11,7 +11,7 @@ First, elect a directory that will hold all HTML sites. This will be mounted as 
 
 Second, elect a data directory which will be mounted as `/opt/wireframes` and hold the `nginx` configuration files for the sites.
 
-Also, you must have a `WIRE_DOMAIN` which resolves to the Docker host i.e. `wires.activelamp.com`
+Also, you must have a `WIRES_DOMAIN` which resolves to the Docker host i.e. `wires.activelamp.com`
 
 ### Example usage
 
@@ -26,7 +26,7 @@ We want to serve the `v0.10` tag of `git@github.com:client/project.git` as `http
 1. Register the sub-domain => directory mapping via the `add-site` command:
 
     ```bash
-    $ docker run -e WIRE_DOMAIN=wires.activelamp.com \
+    $ docker run -e WIRES_DOMAIN=wires.activelamp.com \
         -v ./wireframes:/opt/wireframes \
         wires:latest \
         add-site project-v0-10 c109ed
@@ -37,7 +37,7 @@ We want to serve the `v0.10` tag of `git@github.com:client/project.git` as `http
 1. Start/restart service mounting our sites directory and the configuration directory:
 
     ```bash
-    $ docker run -e WIRE_DOMAIN=wires.activelamp.com \
+    $ docker run -e WIRES_DOMAIN=wires.activelamp.com \
         -v ./wireframes:/opt/wireframes \
         -v ./sites:/var/www/html \
         -d
@@ -48,6 +48,8 @@ We want to serve the `v0.10` tag of `git@github.com:client/project.git` as `http
 
     To be implemented. Will use `awscli`.
 
+1. Repeat Step 2 to add more sites. No need to restart service.
+
 ## Todos:
 
-* [ ] Create a separate service to run on foreground so we can run it and have the freedom of reloading the `nginx` configurations every time we call `add-site`.
+* [x] Create a separate service to run on foreground so we can run it and have the freedom of reloading the `nginx` configurations every time we call `add-site`.

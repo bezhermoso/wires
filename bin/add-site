@@ -2,7 +2,7 @@
 
 directory=$1
 subdomain=$2
-WIRE_DOMAIN=${WIRE_DOMAIN:-wires.activelamp.com}
+WIRES_DOMAIN=${WIRES_DOMAIN:-wires.activelamp.com}
 
 [ -d /opt/wireframes/entries ] && echo '' || mkdir /opt/wireframes/entries
 [ -d /opt/wireframes/proxies ] && echo '' || mkdir /opt/wireframes/proxies
@@ -21,7 +21,7 @@ echo "$template" > /opt/wireframes/entries/$subdomain.conf
 template=$(cat <<EOF
     server {
       listen 80;
-      server_name $subdomain.$WIRE_DOMAIN;
+      server_name $subdomain.$WIRES_DOMAIN;
       
       location / {
         rewrite ^(.*)$ /$subdomain/\$1 break;
@@ -33,3 +33,7 @@ EOF
 
 echo "$template" > /opt/wireframes/proxies/$subdomain.conf
 
+[ -f /tmp/nginx.pid ] && kill -9 $(cat /tmp/nginx.pid)
+nginx -g "daemon off;" >> /var/log/nginx.log &
+pid=$!
+echo $pid > /tmp/nginx.pid
