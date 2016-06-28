@@ -1,0 +1,14 @@
+
+version: '2'
+services:
+  wires:
+    build:
+      context: ./
+    image: wire:latest
+    volumes:
+      - ./playground/wireframes:/opt/wireframes
+      - ./playground/sites:/var/www/html
+    ports:
+      - 80:80
+    environment:
+      - WIRE_DOMAIN=wires.activelamp.local

@@ -1,0 +1,35 @@
+#!/bin/bash
+
+directory=$1
+subdomain=$2
+WIRE_DOMAIN=${WIRE_DOMAIN:-wires.activelamp.com}
+
+[ -d /opt/wireframes/entries ] && echo '' || mkdir /opt/wireframes/entries
+[ -d /opt/wireframes/proxies ] && echo '' || mkdir /opt/wireframes/proxies
+
+template=$(cat <<EOF
+    location /$subdomain/ {
+      root /var/www/html;
+      autoindex on;
+      index index.html index.htm;
+    }
+EOF
+)
+
+echo "$template" > /opt/wireframes/entries/$subdomain.conf
+
+template=$(cat <<EOF
+    server {
+      listen 80;
+      server_name $subdomain.$WIRE_DOMAIN;
+      
+      location / {
+        rewrite ^(.*)$ /$subdomain/\$1 break;
+        proxy_pass http://127.0.0.1:8080;
+      }
+    }
+EOF
+)
+
+echo "$template" > /opt/wireframes/proxies/$subdomain.conf
+
