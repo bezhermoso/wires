@@ -8,7 +8,13 @@ services:
     volumes:
       - ./playground/wireframes:/opt/wireframes
       - ./playground/sites:/var/www/html
+      - ~/.npm:/root/.npm
+      - .:/opt/app
     ports:
-      - 80:80
+      - 8100:80
+      - 3300:3300
     environment:
       - WIRES_DOMAIN=wires.activelamp.local
+      - WIRES_SITE_ROOT=/var/www/html
+      - ENV=dev
+

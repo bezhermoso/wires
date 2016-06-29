@@ -1,0 +1,10 @@
+apps:
+  - name: api
+    script: api/index.js
+    instances: 1
+    exec_mode: fork
+    watch: true
+    ignore_watch: ["playground", ".git/*"]
+    watch_options: 
+      polling: true
+      persistent: true

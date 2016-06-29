@@ -1,0 +1,25 @@
+{
+  "name": "wires",
+  "version": "1.0.0",
+  "description": "### Setup",
+  "main": "api/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bezhermoso/wires.git"
+  },
+  "author": "Bez Hermoso <bezalelhermoso@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bezhermoso/wires/issues"
+  },
+  "homepage": "https://github.com/bezhermoso/wires#readme",
+  "dependencies": {
+    "hapi": "^13.4.1",
+    "koa": "^1.2.0",
+    "koa-route": "^2.4.2",
+    "shelljs": "^0.7.0"
+  }
+}

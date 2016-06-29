@@ -4,8 +4,8 @@ directory=$1
 subdomain=$2
 WIRES_DOMAIN=${WIRES_DOMAIN:-wires.activelamp.com}
 
-[ -d /opt/wireframes/entries ] && echo '' || mkdir /opt/wireframes/entries
-[ -d /opt/wireframes/proxies ] && echo '' || mkdir /opt/wireframes/proxies
+[ -d /opt/wireframes/entries ] && : || mkdir /opt/wireframes/entries
+[ -d /opt/wireframes/proxies ] && : || mkdir /opt/wireframes/proxies
 
 template=$(cat <<EOF
     location /$subdomain/ {
@@ -32,8 +32,3 @@ EOF
 )
 
 echo "$template" > /opt/wireframes/proxies/$subdomain.conf
-
-[ -f /tmp/nginx.pid ] && kill -9 $(cat /tmp/nginx.pid)
-nginx -g "daemon off;" >> /var/log/nginx.log &
-pid=$!
-echo $pid > /tmp/nginx.pid
